@@ -10,7 +10,7 @@ export default defineConfig({
     // so we don't hit CORS issues in the browser
     proxy: {
       '/api': {
-        target: 'http://localhost:8002',
+        target: 'http://localhost:8000',
         changeOrigin: true,
       },
     },

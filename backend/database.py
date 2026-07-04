@@ -1,3 +1,4 @@
+# pyrefly: ignore [missing-import]
 import certifi
 from motor.motor_asyncio import AsyncIOMotorClient
 from config import get_settings
@@ -12,7 +13,10 @@ db = None
 async def connect_db():
     """Open the MongoDB connection on application startup."""
     global client, db
-    client = AsyncIOMotorClient(settings.MONGODB_URL, tlsCAFile=certifi.where())
+    kwargs = {}
+    if "localhost" not in settings.MONGODB_URL and "127.0.0.1" not in settings.MONGODB_URL:
+        kwargs["tlsCAFile"] = certifi.where()
+    client = AsyncIOMotorClient(settings.MONGODB_URL, **kwargs)
     db = client[settings.DB_NAME]
 
     # Create indexes for fast lookups
