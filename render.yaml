@@ -10,7 +10,7 @@ services:
       - key: PYTHON_VERSION
         value: 3.11.0
       - key: MONGODB_URL
-        sync: false
+        value: "mongodb+srv://riyasudeenit27_db_user:RIYAS%28%4027%2F09%29@cluster0.gorsayu.mongodb.net/?appName=Cluster0"
       - key: DB_NAME
         value: taskmanager
       - key: JWT_SECRET_KEY
