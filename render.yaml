@@ -1,0 +1,35 @@
+services:
+  # Backend API Service
+  - type: web
+    name: taskflow-backend
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: MONGODB_URL
+        value: "mongodb+srv://riyasudeenit27_db_user:RIYAS%28%4027%2F09%29@cluster0.gorsayu.mongodb.net/?appName=Cluster0"
+      - key: DB_NAME
+        value: taskmanager
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: "*" # Update this to your frontend URL once deployed if you want stricter CORS
+
+  # Frontend Static Site
+  - type: web
+    env: static
+    name: taskflow-frontend
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: taskflow-backend
+          envVarKey: RENDER_EXTERNAL_URL
