@@ -19,7 +19,8 @@ services:
         value: "*" # Update this to your frontend URL once deployed if you want stricter CORS
 
   # Frontend Static Site
-  - type: static
+  - type: web
+    env: static
     name: taskflow-frontend
     rootDir: frontend
     buildCommand: npm install && npm run build
